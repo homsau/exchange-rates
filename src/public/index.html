@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- App using exchangeratesapi.io/ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Link to SCSS stylesheet-->
-    <link rel="stylesheet" type="text/scss" href="./assets/scss/style.scss">
+    <!--Link to CSS stylesheet-->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
     <title>Exchange Rates</title>
 </head>
 <body>
@@ -19,7 +21,11 @@
                 </select>
             </fieldset>
         </form>
-        <button id="currencyButton">loadCurrency</button>
+        <button id="currencyButton" onclick="logRates()">load</button>
+        <div id="test"><p>hey</p></div>
     </div>
+
+    <!--Load JavaScript-->
+    <script type="text/javascript" src="./index.js"></script>
 </body>
 </html>
