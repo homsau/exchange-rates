@@ -26,6 +26,17 @@
     </div>
 
     <!--Load JavaScript-->
-    <script type="text/javascript" src="./index.js"></script>
+    <!-- <script type="text/javascript" src="./index.js"></script> -->
+    <script type="text/javascript">
+        const xhr = new XMLHttpRequest();
+        let ratesObj = {};
+        xhr.onload = function() {
+            console.log('hey\n');
+            ratesObj = JSON.parse(this.responseText);
+            console.log(ratesObj);
+        }
+        xhr.open('GET', '/api/rates');
+        xhr.send();
+    </script>
 </body>
 </html>
