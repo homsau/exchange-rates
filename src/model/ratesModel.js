@@ -7,12 +7,11 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 let ratesObj = {};
 
-getRates = async () => {
+getRates = async (callback) => {
 	// Instantiate a new XHR Object
 	const xhr = new XMLHttpRequest();
+	
 	return new Promise(function(resolve, reject) {
-		// Open an obejct (GET/POST, PATH, ASYN-TRUE/FALSE)
-		xhr.open('GET', url, true)
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				if (xhr.status >= 300) {
@@ -22,11 +21,14 @@ getRates = async () => {
 				}
 			}
 		}
-	xhr.send(JSON.stringify(ratesObj.body));
+		// Open an obejct (GET/POST, PATH, ASYN-TRUE/FALSE)
+		xhr.open('GET', url, true);
+		xhr.setRequestHeader("Content-Type", "text/xml");
+		xhr.send(JSON.stringify(ratesObj));
 	});
 }
 
-exports.logRates = async () => {
+module.exports.logRates = async (req, res) => {
 	try {
 		ratesObj = await getRates();
 		// Changing string data into JSON Object
@@ -37,5 +39,5 @@ exports.logRates = async () => {
 		  console.log(err);
 	}
 	// console.log(ratesObj.rates.AED);
-	return ratesObj.rates;
+	res.send(ratesObj)
 }

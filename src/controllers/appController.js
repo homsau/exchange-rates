@@ -3,7 +3,7 @@
 
 let ratesObj = require("../model/ratesModel.js");
 
-exports.logRates = (req, res, next) => {
+module.exports.logRates = (req, res, next) => {
     let rates = ratesObj.logRates();
     console.log("appController\n");
     res.render('menu', { rates });
