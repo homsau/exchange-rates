@@ -1,10 +1,13 @@
-// set endpoint and your API key
-const endpoint = 'historical';
+// date today
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
 let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 let yyyy = today.getFullYear()
 let date = yyyy + "-" + mm + "-" + dd;
+
+// set endpoint and your API key
+const endpoint = 'historical';
+
 const access_key = process.env.ACCESS_KEY;
 const url = "http://api.exchangeratesapi.io/v1/" + date 
 		  + "?access_key=" + access_key;

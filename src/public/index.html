@@ -21,6 +21,28 @@
                 </select>
             </fieldset>
         </form>
+        <form>
+            <fieldset>
+                <label for="date" class="hidden">Select Date</label>
+                <select id="yyyy" name="year">
+                    <option value="">Year</option>
+                </select>
+                <select id="mm" name="month">
+                    <option value="">Month</option>
+                </select>
+                <select id="dd" name="day">
+                    <option value="">Day</option>
+                </select>
+            </fieldset>
+        </form>
+        <form>
+            <fieldset>
+                <label for="currency" class="hidden">Select Currency</label>
+                <select id="currency" name="currency">
+                    <option value="">Select Currency</option>
+                </select>
+            </fieldset>
+        </form>
         <button id="currencyButton" onclick="logRates()">load</button>
         <div id="test"><p>test</p></div>
     </div>
@@ -40,16 +62,29 @@
         xhr.send();
     }
     function ratesFunc(xml) {
-        let options = "";
+        let currencyStart = "";
+        let today = new Date();
+        let mm = "";
+        let dd = "";
+        let yyyy = today.getFullYear()
         console.log(xml.rates);
         let rate = xml.rates;
         for (let key in rate) {
             if (rate.hasOwnProperty(key)) {
                 // add each key to dropdown
-                options += "<option value=''>" + key + "</option>";
+                currencyStart += "<option value=''>" + key + "</option>";
             }
         }
-        document.getElementById('currency').innerHTML += options;
+        for(i = 1999; i <= yyyy; i++) {
+            document.getElementById('yyyy').innerHTML += "<option value=''>" + (i) + "</option>";
+        }
+        for(i = 1; i <= 12; i++) {
+            document.getElementById('mm').innerHTML += "<option value=''>" + (i) + "</option>";
+        }
+        for(i = 1; i <= 31; i++) {
+            document.getElementById('dd').innerHTML += "<option value=''>" + (i) + "</option>";
+        }
+        document.getElementById('currency').innerHTML += currencyStart;
     }
     loadDoc(); 
     </script>
