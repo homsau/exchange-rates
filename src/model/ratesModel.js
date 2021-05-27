@@ -1,7 +1,12 @@
 // set endpoint and your API key
-const endpoint = 'latest';
+const endpoint = 'historical';
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+let yyyy = today.getFullYear()
+let date = yyyy + "-" + mm + "-" + dd;
 const access_key = process.env.ACCESS_KEY;
-const url = "http://api.exchangeratesapi.io/v1/" + endpoint 
+const url = "http://api.exchangeratesapi.io/v1/" + date 
 		  + "?access_key=" + access_key;
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -33,7 +38,6 @@ module.exports.logRates = async (req, res) => {
 		ratesObj = await getRates(); // call getRates()
 		// Changing string data into JSON Object
 		ratesObj = JSON.parse(ratesObj);
-		console.log('logRates function:\t' + ratesObj.rates.AED);
 		
 	} catch (err) {
 		  console.log(err);

@@ -19,7 +19,6 @@ app.use(router);
 
 require('./src/routing/htmlRoutes')(app);
 require('./src/routing/apiRoutes')(app);
-const rates = require('./src/public/index.js');
 
 // Listener
 app.listen(PORT, () => {
