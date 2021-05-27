@@ -16,8 +16,8 @@ getRates = async (callback) => {
 			if (xhr.readyState == 4) {
 				if (xhr.status >= 300) {
 					reject("Error, status code = " + xhr.status)
-				} else {
-					resolve(xhr.responseText);
+				} else { // if data found
+					resolve(xhr.responseText); // return responseText
 				}
 			}
 		}
@@ -30,7 +30,7 @@ getRates = async (callback) => {
 
 module.exports.logRates = async (req, res) => {
 	try {
-		ratesObj = await getRates();
+		ratesObj = await getRates(); // call getRates()
 		// Changing string data into JSON Object
 		ratesObj = JSON.parse(ratesObj);
 		console.log('logRates function:\t' + ratesObj.rates.AED);
@@ -38,6 +38,5 @@ module.exports.logRates = async (req, res) => {
 	} catch (err) {
 		  console.log(err);
 	}
-	// console.log(ratesObj.rates.AED);
-	res.send(ratesObj)
+	res.send(ratesObj); // return results
 }
