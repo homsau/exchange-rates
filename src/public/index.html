@@ -12,7 +12,7 @@
 </head>
 <body>
     <div>
-        <h1>HELLO</h1>
+        <h1 style="text-align: center;">Currency Exchange Rates</h1>
         <form>
             <fieldset>
                 <label for="currency" class="hidden">Select Currency</label>
@@ -22,21 +22,39 @@
             </fieldset>
         </form>
         <button id="currencyButton" onclick="logRates()">load</button>
-        <div id="test"><p>hey</p></div>
+        <div id="test"><p>test</p></div>
     </div>
 
     <!--Load JavaScript-->
     <!-- <script type="text/javascript" src="./index.js"></script> -->
     <script type="text/javascript">
+    function loadDoc() {
         const xhr = new XMLHttpRequest();
-        let ratesObj = {};
         xhr.onload = function() {
-            console.log('hey\n');
-            ratesObj = JSON.parse(this.responseText);
-            console.log(ratesObj);
+            if (this.readyState == 4 && this.status == 200) {
+                ratesObj = JSON.parse(this.responseText);
+                // console.log(ratesObj);
+                ratesFunc(ratesObj);
+            }
         }
         xhr.open('GET', '/api/rates');
         xhr.send();
+    }
+    function ratesFunc(xml) {
+        let options = "";
+        console.log(xml.rates);
+        let rate = xml.rates;
+        for (let key in rate) {
+            if (rate.hasOwnProperty(key)) {
+                // add each key to dropdown
+                options += "<option value=''>" + key + "</option>";
+            }
+        }
+        document.getElementById('currency').innerHTML += options;
+    }
+    loadDoc();
+        
+        
     </script>
 </body>
 </html>
