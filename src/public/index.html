@@ -26,14 +26,13 @@
     </div>
 
     <!--Load JavaScript-->
-    <!-- <script type="text/javascript" src="./index.js"></script> -->
     <script type="text/javascript">
     function loadDoc() {
         const xhr = new XMLHttpRequest();
         xhr.onload = function() {
             if (this.readyState == 4 && this.status == 200) {
                 ratesObj = JSON.parse(this.responseText);
-                // console.log(ratesObj);
+                console.log(ratesObj);
                 ratesFunc(ratesObj);
             }
         }
@@ -52,9 +51,7 @@
         }
         document.getElementById('currency').innerHTML += options;
     }
-    loadDoc();
-        
-        
+    loadDoc(); 
     </script>
 </body>
 </html>
