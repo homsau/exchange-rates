@@ -21,6 +21,7 @@ input:not(#submitB) {
 }
 th, td {
     border: 1px solid white;
+    text-align: center;
 }
 td {
     padding: 2px;
