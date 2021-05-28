@@ -30,3 +30,6 @@ An API key can be obtained from [exchangeratesapi.io](http://exchangeratesapi.io
 ## Technologies Used
 
 JavaScript, HTML5, CSS, XMLHttpRequest, Node, Express, API
+
+## Author
+James Cowart
