@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Link to CSS stylesheet-->
     <link rel="stylesheet" type="text/css" href="./css/style.css">
-
     <title>Exchange Rates</title>
 </head>
 <body>
@@ -16,17 +15,17 @@
         <form id="currencyX" onchange="convertFunc()">
             <fieldset>
                 <!-- label and dropdown for starting currency -->
-                <label for="startCurrency" value="null" class="hidden">Starting Currency</label>
+                <label for="startCurrency" class="hidden">Starting Currency</label>
                 <select id="startCurrency" name="currency">
-                    <option value="">Starting Currency</option>
+                    <option>Starting Currency</option>
                 </select>
                 <!-- label and input field for amount -->
                 <label for="amount" class="hidden">Amount</label>
                 <input type="number" id="amount" placeholder="Amount" oninput="convertFunc()">
                 <!-- label and dropdown for ending currency -->
-                <label for="endCurrency" value="null" class="hidden">Ending Currency</label>
+                <label for="endCurrency" class="hidden">Ending Currency</label>
                 <select id="endCurrency" name="currency">
-                    <option value="">Ending Currency</option>
+                    <option>Ending Currency</option>
                 </select>
                 <!-- submit button for conversion -->
                 <!-- don't need the button now that onchange has been implemented -->
@@ -50,7 +49,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p id="summary">Result</p>
+                    <p id="summary">Choose start/finish currency and amount</p>
                 </div>
             </fieldset>
         </form>
@@ -76,7 +75,7 @@
         for (let key in rate) {
             if (rate.hasOwnProperty(key)) {
                 // add each key to dropdown
-                currency += "<option id='" + key + "'' value='" + rate[key] + "'>" + key + "</option>";
+                currency += "<option id='" + key + "' value='" + rate[key] + "'>" + key + "</option>";
             }
         }
         document.getElementById('startCurrency').innerHTML += currency;
@@ -91,12 +90,13 @@
         let amount; // amount to convert
         let final; // converted result
         let summary = "";
-        let test = "";
+
         // set variables for startCurrency, endCurrency, and amount
         startC = document.getElementById('startCurrency').value;
         endC = document.getElementById('endCurrency').value;
         amount = document.getElementById('amount').value;
 
+        // grabs selected symbol for each currency rate for display later
         let symA = document.getElementById("startCurrency");
         let symB = document.getElementById("endCurrency");
         let symbolA = symA.options[symA.selectedIndex].innerHTML;
@@ -110,12 +110,17 @@
             amount + " <span style='font-weight:bold'>" + symbolA + "</span> is equal to " 
             + final + " <span style='font-weight:bold'>" + symbolB + "</span>";
 
+        // fill table cells with values
         document.getElementById('amountCell').innerHTML = amount;
         document.getElementById('startCell').innerHTML = startC;
         document.getElementById('endCell').innerHTML = endC;
         document.getElementById('finalCell').innerHTML = final;
-        // paragraph below inputs
-        document.getElementById('summary').innerHTML = summary;
+        if(startC > 0 && endC > 0 && amount > 0) {
+            // paragraph below inputs
+            document.getElementById('summary').innerHTML = summary;            
+        } else {
+            document.getElementById('summary').innerHTML = "Choose start/finish currency and amount";
+        }
     }
     </script>
 </body>
