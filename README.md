@@ -1,5 +1,5 @@
 # Exchange-Rates 
-<!-- ## Demo - [View Here](https://currencyconversioncalc.herokuapp.com/) -->
+## Demo - [View Here](https://currencyconversioncalc.herokuapp.com/)
 
 This app is a currency conversion calculator. It was built using JavaScript without any frontend frameworks, runs on Node using Express.js, and uses XMLHttpRequests to grab exchange rates from exchangeratesapi.io
 
