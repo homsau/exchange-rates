@@ -24,6 +24,7 @@ Create an .env file at the root of the project and populate with connection info
 # ratesapi
 ACCESS_KEY=
 ```
+An API key can be obtained from [exchangeratesapi.io](http://exchangeratesapi.io)
 
 ## Technologies Used
 
