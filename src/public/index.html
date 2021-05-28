@@ -100,7 +100,7 @@
         let symA = document.getElementById("startCurrency");
         let symB = document.getElementById("endCurrency");
         let symbolA = symA.options[symA.selectedIndex].innerHTML;
-        let symbolB= symB.options[symB.selectedIndex].innerHTML;
+        let symbolB = symB.options[symB.selectedIndex].innerHTML;
         
         // convert, store in final, trim variables
         startC = Math.round(startC * 100) / 100;
@@ -118,8 +118,11 @@
         if(startC > 0 && endC > 0 && amount > 0) {
             // paragraph below inputs
             document.getElementById('summary').innerHTML = summary;            
+        } else if(Math.sign(amount) < 0) {
+            document.getElementById('summary').innerHTML = "Choose start/finish currency and a VALID amount";
+            document.getElementById('finalCell').innerHTML = "Neg";
         } else {
-            document.getElementById('summary').innerHTML = "Choose start/finish currency and amount";
+            document.getElementById('summary').innerHTML = "Choose start/finish currency and an amount";
         }
     }
     </script>
