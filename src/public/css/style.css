@@ -1,0 +1,39 @@
+html {
+    background-color: #0c7db4;
+}
+.hidden {
+    display: none;
+}
+#currencyX {
+    display: block;
+    max-width: 90vw;
+    width: fit-content;
+    margin: auto;
+}
+#currencyX #submitB {
+    width: 100%;
+}
+fieldset {
+    background-color: #183a49
+}
+input:not(#submitB) {
+    margin: 5px;
+}
+th, td {
+    border: 1px solid white;
+}
+td {
+    padding: 2px;
+}
+table {
+    color: white;
+    width: 100%;
+    margin-top: 5px;
+}
+#summary {
+    color: white;
+    text-align: center;
+}
+#resultsC table td {
+    width: 25%;
+}

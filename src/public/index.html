@@ -12,46 +12,55 @@
 </head>
 <body>
     <div>
-        <h1 style="text-align: center;">Currency Exchange Rates</h1>
-        <form>
+        <h1 style="text-align: center;">Currency Conversion</h1>
+        <form id="currencyX" onchange="convertFunc()">
             <fieldset>
-                <label for="currency" class="hidden">Select Currency</label>
-                <select id="currency" name="currency">
-                    <option value="">Select Currency</option>
+                <!-- label and dropdown for starting currency -->
+                <label for="startCurrency" value="null" class="hidden">Starting Currency</label>
+                <select id="startCurrency" name="currency">
+                    <option value="">Starting Currency</option>
                 </select>
+                <!-- label and input field for amount -->
+                <label for="amount" class="hidden">Amount</label>
+                <input type="number" id="amount" placeholder="Amount" oninput="convertFunc()">
+                <!-- label and dropdown for ending currency -->
+                <label for="endCurrency" value="null" class="hidden">Ending Currency</label>
+                <select id="endCurrency" name="currency">
+                    <option value="">Ending Currency</option>
+                </select>
+                <!-- submit button for conversion -->
+                <!-- don't need the button now that onchange has been implemented -->
+                <!-- <input id="submitB" type="button" value="Convert" onclick="convertFunc()"> -->
+
+                <!-- results container -->
+                <div id="resultsC">
+                    <table>
+                        <thead>
+                            <th>Amount</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Result</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="amountCell"></td>
+                                <td id="startCell"></td>
+                                <td id="endCell"></td>
+                                <td id="finalCell"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p id="summary">Result</p>
+                </div>
             </fieldset>
         </form>
-        <form>
-            <fieldset>
-                <label for="date" class="hidden">Select Date</label>
-                <select id="yyyy" name="year">
-                    <option value="">Year</option>
-                </select>
-                <select id="mm" name="month">
-                    <option value="">Month</option>
-                </select>
-                <select id="dd" name="day">
-                    <option value="">Day</option>
-                </select>
-            </fieldset>
-        </form>
-        <form>
-            <fieldset>
-                <label for="currency" class="hidden">Select Currency</label>
-                <select id="currency" name="currency">
-                    <option value="">Select Currency</option>
-                </select>
-            </fieldset>
-        </form>
-        <button id="currencyButton" onclick="logRates()">load</button>
-        <div id="test"><p>test</p></div>
     </div>
 
     <!--Load JavaScript-->
     <script type="text/javascript">
     function loadDoc() {
         const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
+        xhr.onload = function(res) {
             if (this.readyState == 4 && this.status == 200) {
                 ratesObj = JSON.parse(this.responseText);
                 console.log(ratesObj);
@@ -62,31 +71,52 @@
         xhr.send();
     }
     function ratesFunc(xml) {
-        let currencyStart = "";
-        let today = new Date();
-        let mm = "";
-        let dd = "";
-        let yyyy = today.getFullYear()
-        console.log(xml.rates);
+        let currency = "";
         let rate = xml.rates;
         for (let key in rate) {
             if (rate.hasOwnProperty(key)) {
                 // add each key to dropdown
-                currencyStart += "<option value=''>" + key + "</option>";
+                currency += "<option id='" + key + "'' value='" + rate[key] + "'>" + key + "</option>";
             }
         }
-        for(i = 1999; i <= yyyy; i++) {
-            document.getElementById('yyyy').innerHTML += "<option value=''>" + (i) + "</option>";
-        }
-        for(i = 1; i <= 12; i++) {
-            document.getElementById('mm').innerHTML += "<option value=''>" + (i) + "</option>";
-        }
-        for(i = 1; i <= 31; i++) {
-            document.getElementById('dd').innerHTML += "<option value=''>" + (i) + "</option>";
-        }
-        document.getElementById('currency').innerHTML += currencyStart;
+        document.getElementById('startCurrency').innerHTML += currency;
+        document.getElementById('endCurrency').innerHTML += currency;
     }
     loadDoc(); 
+
+    function convertFunc() {
+        // initialize necessary variables
+        let startC; // start currency
+        let endC; // end currency
+        let amount; // amount to convert
+        let final; // converted result
+        let summary = "";
+        let test = "";
+        // set variables for startCurrency, endCurrency, and amount
+        startC = document.getElementById('startCurrency').value;
+        endC = document.getElementById('endCurrency').value;
+        amount = document.getElementById('amount').value;
+
+        let symA = document.getElementById("startCurrency");
+        let symB = document.getElementById("endCurrency");
+        let symbolA = symA.options[symA.selectedIndex].innerHTML;
+        let symbolB= symB.options[symB.selectedIndex].innerHTML;
+        
+        // convert, store in final, trim variables
+        startC = Math.round(startC * 100) / 100;
+        endC = Math.round(endC * 100) / 100;
+        final = Math.round((endC * amount / startC) * 100) / 100;
+        summary = 
+            amount + " <span style='font-weight:bold'>" + symbolA + "</span> is equal to " 
+            + final + " <span style='font-weight:bold'>" + symbolB + "</span>";
+
+        document.getElementById('amountCell').innerHTML = amount;
+        document.getElementById('startCell').innerHTML = startC;
+        document.getElementById('endCell').innerHTML = endC;
+        document.getElementById('finalCell').innerHTML = final;
+        // paragraph below inputs
+        document.getElementById('summary').innerHTML = summary;
+    }
     </script>
 </body>
 </html>
